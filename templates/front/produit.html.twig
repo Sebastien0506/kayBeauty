@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Nos Produits{% endblock %}
+{% block body %}
+
+   <div class="container">
+     <div class="row">
+         {% for produit in produits %}
+      
+         <div class="col-6 col-md-4 mt-5">
+            <div class="container">
+               <div class="row">
+                  <img class="img-fluid" src="{{ asset('image/produit/' ~ produit.imageName)}}">
+                  <div class="text-enter">
+                     {{ produit.titre|capitalize }}
+
+                     <h3>{{ produit.prix }}€</h3>
+                     <a href="{{ path('fiche_produit', {'id' : produit.id }) }}">Voir la fiche produit</a><br>
+                     <a href="{{path("panier_add", {id: produit.id}) }}">Ajoutez au Panier</a>
+                  </div>
+               </div>   
+            
+            </div>
+      </div>   
+         {% endfor %}
+     </div>
+   </div>  
+{% endblock %}

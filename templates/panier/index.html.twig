@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+{% block h1 %}Mon Panier {% endblock  %}
+
+{% block body %}
+
+{% if dataPanier|length == 0 %}
+  <div class="text-center">
+<p class="btn btn-warning mt-5">Votre panier est actuellement vide </p>
+
+</div>
+{% else %}
+    {# {% if panier is empty %}
+        <p>Votre  panier est vide</p>
+    {% else %}
+     #}
+       <table class="table">
+            <thead>
+                <tr>
+                   <th>Produit</th>
+                   <th>Prix</th>
+                   <th>Quantité</th>
+                   <th>Total</th>
+                   <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+           
+                {% for element in dataPanier %}
+                    <tr>
+                        <td>{{element.produit.titre}}</td>
+                        <td>{{element.produit.prix}}€</td>
+                        <td>{{element.quantite }}</td>
+                        <td>{{element.produit.prix * element.quantite}}€</td>
+                        <td>
+                           <a href="{{path("panier_add", {id: element.produit.id}) }}" class="btn btn-success">Ajoutez</a>
+                           <a href="{{path("delete", {id: element.produit.id}) }}" class="btn btn-warning">Retirez</a>
+                           
+                           
+                        </td>
+                    </tr>
+                    
+                {% endfor %}
+           
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td>{{total}} €</td>
+                </tr>
+                
+
+            </tfoot>
+       </table>
+      
+    {% endif %}
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{{ path('validation_panier') }}" class="btn btn-light mt-5">Enregistrez le panier</a>
+        <a href="{{ path('app_commande') }}" class="btn btn-light mt-5">Validez la commande</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Nos Prestation{% endblock %}
+
+{% block body %}
+<div class="container">
+   <div class="row">
+       {% for prestation in prestation %}
+            <div class="col-6 col-md-4 mt-5">
+                
+                   <img class="img-fluid" src="{{ asset('image/prestation/' ~ prestation.imageName) }}">
+               
+               <div class="text-center">
+                    {{prestation.nom|capitalize}}
+
+                    <h3>{{prestation.prix}}€</h3>
+                        
+                   {% if prestation.dureHeure > 0 %}
+                       {% if prestation.dureMinutes > 0 %}
+                           <p>{{ prestation.dureHeure}}h{{prestation.dureMinutes}}min</p>
+                        {% else %}
+                           <p>{{ prestation.dureHeure }}h</p>
+                        {% endif %}
+                    {% else %}
+                        <p>{{ prestation.dureMinutes }}min</p>
+                    {% endif %}
+
+                    
+                    <a href="{{ path('fiche_prestation', {'id' : prestation.id}) }}">Voir la fiche de la prestation</a><br>
+                    <a href="{{ path('prestation_reservation', {'id' : prestation.id}) }}">Prendre rendez-vous</a>
+                </div>
+            </div>
+
+       {% endfor %}
+   </div>
+</div>
+{% endblock %}

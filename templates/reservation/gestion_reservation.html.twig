@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{# SUR SE CALENDRIER ON VA POUVOIR MODIFIER LES RENDEZ-VOUS (SUPPRIMER OU DEPLACER) #}
+
+{% block h1 %}Gestion des reservations{% endblock %}
+
+{% block body %}
+
+    <div id="calendrier">
+         
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>//Sers a générer un calendrier
+window.onload = () => {
+    let calendarElt = document.querySelector("#calendrier")
+
+    let calendar = new FullCalendar.Calendar(calendarElt, {
+         
+          initialView:'timeGridWeek',
+          
+          locale: 'fr', //sers a mettre le calendrier en francais 
+          timeZone: 'Europe/Paris',
+          headerToolbar: {
+            start: 'prev, next today',
+            center: 'title',
+            end: 'timeGridWeek'
+          },
+          
+          
+           businessHours: {
+            daysOfWeek: [1, 2, 3, 4, 5], //Lundi au vendredi
+            startTime: '8:00', //Heure de début
+            startEnd: '17:00', //heure de fin
+          },
+          
+
+          select: function(arg){
+            //On vérifie si la date selectionner est un samedie ou un dimanche
+            if(arg.start.getDay() === 0 || arg.start.getDay() === 6){
+              //Si c'est le cas, on annule la selection 
+              calendar.unselect();
+              return;
+            }
+          },
+          select: function(arg){
+            //ON désactive la selection pour le samedie et le dimanche 
+            if(arg.start.getDay() === 0 || arg.start.getDay() === 6){
+              return false;
+            }
+            // On autorise la selection pour les autres jour
+            return true
+          },
+          events: {{data|raw}},
+          editable: true //Permet de déplacer les rendez-vous
+    })
+    calendar.on('eventChange',(e) => {
+      let url = `/api/${e.event.id}/edit`
+      let donnees = {
+        "title": e.event.title,
+        "description": e.event.extendedProps.description,
+        "start": e.event.start,
+        "end": e.event.end,
+        "backgroundColor": e.event.backgroundColor,
+        "borderColor": e.event.borderColor,
+        "textColor": e.event.textColor
+      }
+      let xhr = new XMLHttpRequest 
+
+      xhr.open("PUT", url)
+      xhr.send(JSON.stringify(donnees))
+    })
+    calendar.render()
+}
+    
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+{% endblock %}

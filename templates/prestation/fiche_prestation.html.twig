@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}{{ prestation.nom|capitalize }}{% endblock %}
+
+{% block body %}
+
+       
+
+            
+                <div class="grid-prestation2 mx-auto mt-5">
+                    <div class="d-flex flex-column"> 
+                        <img src="{{ asset('image/prestation/' ~ prestation.imageName )}}">
+                    
+                        {{prestation.nom|capitalize}}
+                
+                        <h3>{{ prestation.prix }} €</h3>
+                        <a href="{{ path('rendez_vous', {'id' : prestation.id}) }}" class="btn btn-success">Prendre rendez-vous</a>
+                    </div>    
+                </div>
+
+    <div class="description mx-auto">
+        {% if prestation.description %}
+            <h3 class="home">Description</h3>
+
+            <p>{{ prestation.description|capitalize }}</p>
+
+        {% endif %}
+    </div> 
+
+           
+
+           
+       
+    </div> 
+
+{#--------------------------------------#}
+   {# liste des commentaires#}
+
+   {% if commentaires %}
+   
+       {% for commentaire in commentaires %}
+        
+           {% if app.user == commentaire.user %}
+                 {% set color = 'success' %}
+            {% else %}
+                 {% set color = 'info' %}
+            {% endif %}
+        <div class="commentaire">
+            <p>Par: {{ commentaire.user.nom }}</p>
+            <p>{{ commentaire.createdAt|date('d/m/Y h:i:s') }}</p>
+
+            {{commentaire.message}}
+        </div>
+        {% endfor %}
+    
+
+    {% else %}
+        <h3>Soyez le premier à laissez votre avis !!!</h3>
+    {% endif %}
+
+    {% if app.user %}
+        {% if 'ROLE_ADMIN' in app.user.roles %}{#Permet de verifier si l'utilisateur a le role admin #}
+             <h3>Vous ête administrateur vous ne pouvez donc pas laisser de commentaire</h3>
+        {% else %}
+        {{ form_start(formCommentaire) }}
+        {{ form_row(formCommentaire) }}
+
+         <input type="submit" value="Enregistrer">
+
+        {{ form_end(formCommentaire) }}
+    
+        
+        {% endif %}
+    {% else %}
+        <h3>Veuillez vous connecter pour laisser votre commentaire</h3>
+    {% endif %} 
+
+
+    
+     <a href="{{app.request.headers.get('referer')}}" class="btn btn-secondary rounded-4">Retour</a>  
+   
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+ {% endblock %} 

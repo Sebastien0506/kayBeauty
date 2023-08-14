@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Ajouter des prestation{% endblock %}
+
+{% block body %}
+
+{{ form_start(formPrestation) }}
+
+     {{ form_row(formPrestation.nom) }}
+
+     {{ form_row(formPrestation.prix) }}
+
+     {{ form_label(formPrestation.description) }}
+     {{ form_widget(formPrestation.description) }}
+     {{ form_help(formPrestation.description) }}
+     {{ form_errors(formPrestation.description) }}
+
+     {{ form_rest(formPrestation)}}
+     <input type="submit" value="Ajouter">
+
+{{ form_end(formPrestation) }}
+     
+
+{% endblock %}

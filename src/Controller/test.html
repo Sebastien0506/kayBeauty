@@ -1,0 +1,20 @@
+$panier = $session->get("panier", []);//On recuperer la session panier et si jamais elle est vide on recuperer un tableau vide 
+//On fabrique les données 
+$dataPanier = [];//créer une variable et on l'initialise a un tableau vide 
+$total = 0;//sers a calculer le total des prix 
+
+foreach($panier as $id => $quantite){//sert a bouclée sur le panier pour y recuperer l'id et la quantité
+    
+      $produit = $produitRepository->findBy($id);//Permet de recuperer un produit grace a la methode findAll() à partir de sont identifiant 
+     
+      $dataPanier[] = [  //Créer un tableau pour stocker des information sur un panier, la clé "produit" contiendrait le nom ou la référence du produit
+        //et la clés "quantité" contiendrait la quantité de se produit dans le panier.
+        "produit" => $produit,
+        "quantite" => $quantite
+       ];
+      $total += $produit->getPrice() * $quantite;//permet de calculer d'un produit par la quantité commandé et en ajoutant ce montant au coût total deja accumulé.
+     
+}
+return $this->render('panier/index.html.twig', [
+    "dataPanier" => $dataPanier
+]);

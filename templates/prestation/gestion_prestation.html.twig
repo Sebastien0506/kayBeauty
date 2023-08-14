@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Gestion des Prestation{% endblock %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix(€)</th>
+      <th scope="col">Duré</th>
+      <th scope="col">Description</th>
+      <th scope="col">Modifier</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for prestation in prestations %}
+    <tr>
+      
+      <td>{{prestation.id}}</td>
+      <td>{{prestation.nom}}</td>
+      <td>{{prestation.prix}}€</td>
+      <td>
+        {% if prestation.dureHeure > 0 %}
+            {% if prestation.dureMinutes > 0 %}
+              <p>{{ prestation.dureHeure}}h{{prestation.dureMinutes}}min</p>
+            {% else %}
+              <p>{{ prestation.dureHeure }}h</p>
+            {% endif %}
+          {% else %}
+            <p>{{ prestation.dureMinutes }}min</p>
+        {% endif %}
+      </td>
+      <td>
+        {% if prestation.description %}
+           {{ prestation.description|capitalize}}
+         {% else %}
+            <span class="fst-italic text-danger">Non renseigner</span>
+         {% endif %}
+      </td>
+
+      <td>
+        <a href="{{ path('prestation_modifier', {'id' : prestation.id}) }}">Modifier<a>
+      </td>
+      <td>
+        <a href="{{ path('prestation_supprimer', {'id' : prestation.id}) }}"
+        onclick="return confirm('êtes-vous sûr de vouloir supprimer cette prestation ?')">Supprimer</a>
+      </td>
+    </tr>
+   {% endfor %}
+     
+  </tbody>
+</table>
+
+
+
+
+{% endblock %}

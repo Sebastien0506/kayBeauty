@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}{{ produit.titre|capitalize}}{% endblock %}
+
+{% block body %}
+
+
+<div class="container"> 
+   <div class="row">
+        <div class="col-lg-6">       
+            <img class="img-fluid" src="{{ asset('image/produit/' ~ produit.imageName)}}">
+            <div class="text-center">                
+                {{produit.titre|capitalize}}
+            <h3>{{ produit.prix }} €</h3> 
+            </div>
+        </div>    
+      
+         {% if produit.description %}
+        <div class="col-lg-6">         
+            <h3 class="mt-4">Description</h3>
+        <div class="description">            
+            <p>{{ produit.description|capitalize }}</p>
+        </div> 
+        </div>               
+        {% endif %}
+    </div>     
+</div>           
+          
+                             
+       
+                    
+                      
+         
+ 
+            
+            
+                         
+
+    
+       
+    
+
+        
+
+       
+
+    
+    
+   
+   {#--------------------------------------#}
+   {# liste des commentaires#}
+
+   <h3>Commentaire</h3>
+
+   {% if commentaires %}
+
+       {% for commentaire in commentaires %}
+
+            {% if app.user == commentaire.user %}
+                 {% set color = 'success' %}
+            {% else %}
+                 {% set color = 'info' %}
+            {% endif %}
+        <div class="commentaire"> 
+            <p>Par: {{ commentaire.user.nom }}</p>
+            <p>{{ commentaire.createdAt|date('d/m/Y h:i:s') }}</p>
+            
+                {{commentaire.message}}
+           
+                 
+          </div>   
+        {% endfor %}
+    
+
+    {% else %}
+        <h3>Soyez le premier à laissez votre avis !!!</h3>
+    {% endif %}
+
+    {% if app.user %}
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+                <h3>Vous ête l'administrateur vous ne pouvez donc pas laissez de commentaire</h3>
+        {% else %}
+            {{ form_start(formCommentaire) }}
+            {{ form_row(formCommentaire) }}
+
+            <input type="submit" value="Enregistrer">
+
+         {{ form_end(formCommentaire) }}
+         {% endif %}
+    {% else %}
+        <h3>Veuillez vous connecter pour laisser votre commentaire</h3>
+    {% endif %} 
+
+    <a href="{{app.request.headers.get('referer')}}">Retour</a>
+    </div>
+
+{% endblock %}     
+    
+    
+    
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+   
+
+
+    

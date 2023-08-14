@@ -1,0 +1,189 @@
+*{
+   box-sizing: border-box;
+}
+
+body {
+    background-image:linear-gradient(to bottom, #ffc0cb, white);
+    background-attachment: fixed;
+}
+
+.hoverable .hover-content {
+    display: none;
+}
+
+.hoverable:hover .hover-content {
+    display: block;
+}
+
+ul{
+    display:flex;
+    justify-content: space-around;
+    list-style: none;
+
+}
+
+h1{
+    text-align:center;
+    margin-top:50px;
+}
+.home{
+    text-align: center;
+    margin-top: 50px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav ul ul {
+    display: none;
+}
+
+nav ul li:hover > ul {
+    display:inherit;
+}
+nav ul li:hover > ul.visible {
+    display: inherit;
+}
+
+.nav_burger {
+    display: none;
+    
+}
+
+.nav_burger svg {
+    stroke: black;
+    width: 25px;
+    height: 25px;
+}
+.close_nav{
+    display: none;
+}
+
+@media  screen and (max-width: 600px) {
+  
+
+   .nav_burger {
+   display: flex;
+   justify-content: flex-end;
+  
+}
+   nav{
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(100%);
+      
+      transition: 0.3s transform ease-in-out;
+   }
+   nav.open{
+    transform: initial;
+    
+   }
+   ul{
+    flex-direction: column;
+    align-items: flex-start;
+   }
+   li{
+    margin-right: 0;
+    margin-bottom: 20px;
+   }
+   .close_nav{
+    display: block;
+   }
+
+   .close_nav svg{
+    stroke: black;
+    width: 25px;
+    height: 25;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+}
+
+
+
+.grid-prestation {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+   
+}
+
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+}
+
+/* Définition de l'animation */
+@keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Application de l'animation à l'élément */
+  .element {
+    animation: slide-in 1s ease-in-out;
+  }
+.container{
+  text-align: center;
+  
+}
+.grid-prestation2 {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    width: 400px;
+}
+
+.commentaire{
+    background-color: white;
+    margin-top: 40px;
+    border-radius: 15px;
+    width: 600px;
+    margin-left: 20px;
+}
+@media(max-width: 600px){
+    .commentaire{
+         width: 200px
+    }
+}
+
+.description{
+    background-color: white;
+    border-radius: 15px;
+    width: 600px;
+    margin-left: 20px;
+   
+}
+
+@media(max-width: 600px){
+    .description{
+        width: 300px;
+    }
+}
+
+
+
+
+
+  

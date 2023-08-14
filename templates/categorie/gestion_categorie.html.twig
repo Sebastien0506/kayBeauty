@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Gestion des Categorie{% endblock %}
+
+
+{% block body %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for categorie in categorie %}
+    <tr>
+      
+      <td>{{categorie.id}}</td>
+      <td>{{categorie.nom}}</td>
+
+      <td>
+         <a href="{{ path('categorie_supprimer', {'id' : categorie.id}) }}"
+         onclick="return confirm('êtes-vous sûr de vouloir supprimer la categorie ?')">Supprimer</a>
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+      
+
+
+
+
+
+
+{% endblock %}

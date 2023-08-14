@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}back Office{% endblock %}
+
+{% block h1 %}Back Office{% endblock %}
+
+{% block body %}
+
+
+<ul>
+    <li> 
+        <a class="navbar-band" href="{{ path('gestion_produit') }}">Gestion des Produits</a>
+        <ul>
+            <li><a class="navbar-band" href="{{ path('produit_ajouter') }}">Ajoutez des Produits</a></li>
+        </ul>
+    </li>    
+        
+    
+    <li>
+        <a class="navbar-band" href="{{ path('gestion_prestation') }}">Gestion de Prestation</a>
+    </li>      
+    
+    <li> 
+        <a class="navbar-band" href="{{ path('ajouter_prestation') }}">Ajoutez des Prestation</a>
+    </li>
+
+    <li>
+        <a class="navbar-band" href="{{ path('app_categorie_new') }}">Ajoutez des Catégories</a>
+    </li> 
+
+    <li>
+        <a class="navbar-band" href="{{ path('gestion_categorie') }}">Gestion des Categories</a>
+    </li> 
+    <li>
+        <a class="navbar-band" href="{{ path('app_logo_new') }}">Gestion du logo</a>
+    </li> 
+
+    {# <li>
+        <a class="navbar-band" href="{{ path('gestion_reservation') }}">Gestion des Reservation</a>
+    </li> #}
+    
+    
+    
+       
+ </ul>   
+
+{% endblock %}

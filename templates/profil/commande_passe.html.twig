@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Commande Passé{% endblock h1 %}
+
+{% block body %}
+{% if commandes|length > 0 %}
+  {% for commande in commandes %}
+    <div class="bg-white mx-4 rounded-4">
+      <ul>
+        <div class="d-flex flex-column justify-content-center mt-3 gap-3">
+          <li>Numéro de commande:{{commande.numeroDeCommande}}</li>
+          <li>Date de commande:{{commande.dateDeCommande|date('d/m/Y H:i')}}</li>
+        </div>  
+            {% for article in commande.articles %}
+              <div class="d-flex flex-column mt-3">
+              <img src=" {{ asset('image/produit/' ~ article.produit.imageName)}}" alt="{{ article.produit.titre }}">
+                <li>Nom du produit:{{ article.produit.titre}}</li> 
+                
+              </div>  
+            {% endfor %}
+          <li class="d-flex align-items-center">Total:{{commande.total}}€</li>
+        
+      </ul>  
+    </div>
+  {% endfor %}
+{% else %}
+  <h3>Vous n'avez pas encore commander</h3>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{# SUR SE CALENDRIER ON VA POUVOIR CLIQUER SUR CHAQUE JOURNÉE POUR PRENDRE DES RENDEZ-VOUS OU LES SUPPRIMER ET FAIRE EN SORTE QUE LE CRENAUX PRIS PAR LE RENDEZ-VOUS NE SOIS PLUS DISPONIBLE POUR LES AUTRE CLIENTS #}
+
+{% block h1 %}Prise de rendez-vous{% endblock %}
+
+{% block body %}
+    <div id="calendrier">
+         
+    </div>
+    <button type="submit" id="submit-button">Validez</button>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    let event = {{ event|json_encode|raw}};
+    
+    let selectEvent = null;
+
+
+  //Sers a générer un calendrier
+  window.onload = () => {
+    let calendarElt = document.querySelector("#calendrier")
+
+    let calendar = new FullCalendar.Calendar(calendarElt, {
+        initialView:'timeGridWeek',
+        editable: true,
+        selectable: true,
+        eventConstraint: 'businessHours',
+        selectConstraint: 'businessHours',
+        slotDuration: '00:30:00', //durée minimum pour une prestation
+         
+        locale: 'fr', 
+        timeZone: 'Europe/Paris',
+        headerToolbar: {
+          start: 'prev, next today',
+          center: 'title',
+          end: 'timeGridWeek',
+        },
+          
+        businessHours: [
+          {
+            daysOfWeek: [1, 2, 3, 4, 5], // Monday to Friday
+            startTime: '08:00',
+            endTime: '12:00',
+          },
+          { daysOfWeek: [1, 2, 3, 4, 5], // Monday to Friday
+            startTime: '13:00',
+            endTime: '17:00'
+          },
+        ],
+        selectOverlap: false,
+        selectOverlap: function(event) {
+        return event.rendering === 'background';
+        },
+ 
+        eventClick: function(info){
+          if(confirm("Etes vous sûr de vouloir supprimer cette reservation ?")){
+            info.event.remove(); //On supprime la reservation
+          }
+        },
+
+        select: function(info){
+          let prestationDuration = event.dureMinutes;
+          let selectDuration = (info.end - info.start) / 1000 / 60;
+
+          if(selectDuration < prestationDuration){
+            //Calculer la nouvelle date de fi 
+            let newEnd = new Date(info.start.getTime() + prestationDuration * 60 * 1000);
+        
+            //Ajouter l'évènement au calendrier
+            calendar.addEvent({
+              title: event.nom,
+              start: info.start,
+              end: newEnd,
+              color: 'red',
+              textColor: 'white'
+            });
+          }else{
+            //Si la durée de la séléction est suffisant on ajoute la prestation
+            calendar.addEvent({
+              title: event.nom,
+              start: info.start,
+              end: info.end,
+              color: 'red',
+              textColor: 'white'
+            });
+          }
+          selectEvent = {
+            prestation: event.nom,
+            date: info.start,
+            start: info.start,
+            end: info.end
+          };
+          
+        }
+          
+    });
+    
+  
+    calendar.render();
+  
+   
+
+ $('#submit-button').on('click', function(){
+            if(selectEvent){
+              $.ajax({
+                url: '/reservation/store_reservation',
+                method: 'POST',
+                data: JSON.stringify(selectEvent),
+                contentType: 'application/json',
+                success: function(response){
+                  //Gérer la reponse du serveru
+                  alert("Réservation enregistré avec succès !");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  //Gérer l'erreur
+                  alert("Erreur lors de l'enregistrement de la réservation" + textStatus + ": " + errorThrown);
+                }
+                
+              });
+              
+            }
+            
+          })
+   
+ 
+ };
+
+ 
+
+
+
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+{% endblock %}

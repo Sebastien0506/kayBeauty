@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block h1 %} Ajoutez une adresse{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="text-center">
+        {{ form_row(form.nomDeLaRue) }}
+        {{ form_row(form.numeroDeRue) }}
+        {{ form_row(form.codePostal) }}
+        {{ form_row(form.ville) }}
+        {{ form_row(form.numeroDeTelephone) }}
+   
+
+        <button type="submit">Continuer</button>
+    </div>
+    {{form_end(form) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

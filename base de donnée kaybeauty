@@ -1,0 +1,95 @@
+base de donnée kaybeauty
+---------------------------
+
+Entity
+---------------------------
+
+User:
+id
+nom (string)
+email (string)
+mot de passe (string)
+
+Panier
+id
+id_produit(titre, prix)
+
+Prestation:
+id
+nom (string)
+prix(foat)
+description (text)
+commentaire(tex)
+
+prise de rendez-vous: 
+id
+nom (string)
+telephone(floate)
+date(time)
+heure(time)
+
+
+Produit:
+id
+titre (string)
+prix (float)
+description (text)
+
+
+Commentaire:
+id_user(nom)
+id_produit(nom du produit)
+
+
+Categorie
+id
+id_produit
+
+
+Livraison:
+id
+id_user
+nom de rue (string)
+ville (string)
+code postale (float)
+
+
+RELATION:
+------------------
+
+Coté front:
+
+Quand le client va arriver sur le site, il va avoir 1 panier et le panier aura 1 client, le panier contiendra  0 article, mais le client pourra ajouter 1 ou plusieur article,
+1 article correspond a 1 seul produit et 1 produit  correspond a 1 seul article, ensuite si il veut le client pourra laisser 0 ou 1 commentaire mais 1 commentaire sera fait par 1 client. 
+Les produit aurons 0 ou plusieur commentaire, mais chaque commentaire aura 1 seul produit, 
+  
+
+Si le client achete et qui valide sont panier il passera alors au moyen de payement et au option de livraison (les moyen de payement ne saurons pas traiter par notre site).
+Quand au option de livraison le client aura la possibilité de renseigner 1 seul adresse  de livraison, l'adresse aura 1 seul client, le client devra aussi renseigner 1 seul adresse de facturation, 
+et l'adresse de facturation aura 1 seul client, 1 adresse aura 1 seul code postale, mais 1 code postale aura 0 ou plusieur adresse. 
+
+
+
+Coté back:
+
+L'administrateur pourra avoir accès au historique de commande, 
+1 article pourra être dans 0 ou plusieur commande, mais 1 commande pourra avoir 1 ou plusieur article, 
+1 commande appartiendra a 1 seul client, mais 1 client pourra avoir plusieur commande,  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

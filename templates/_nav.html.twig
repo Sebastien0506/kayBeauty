@@ -1,0 +1,121 @@
+<!-- As a link -->
+<nav>
+  <div class="close_nav" onclick="closeMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+  </div>
+
+  <ul>
+      
+        <li>
+            <a class="navbar-brand" href="{{ path('home') }}">Accueil</a>
+        </li>
+
+        <li>
+            <a class="navbar-brand" href="{{ path('prestation') }}">Prestation</a>
+        </li>
+
+        <li>
+            <a class="navbar-band" href="{{ path('produit') }}">Produit</a>
+          <ul>
+            <li><a class="navbar-band" href="{{ path('app_categorie',{'id':1}) }}">Peau Sèche</a></li>
+            <li><a class="navbar-band" href="{{ path('app_categorie',{'id':6}) }}">Crème Anti-Age</a></li> 
+            <li><a class="navbar-band" href="{{ path('app_categorie',{'id':5}) }}">Peau Sensible</a></li>
+            <li><a class="navbar-band" href="{{ path('app_categorie',{'id':2}) }}">Peau Grasse</a></li>
+          </ul> 
+
+          
+
+        </li>
+        <li>
+            <a href="{{ path('panier_index') }}"><span class="material-symbols-outlined">
+            shopping_bag
+            </span></a>
+        </li>
+
+
+     
+       
+      
+        <li>
+    {% if app.user %}
+    <li> 
+          <a class="navbar-band" href="{{ path('mon_compte') }}">Mon Compte </a>
+      <ul>
+        <li>
+          <a class="navbar-brand" href="{{ path('app_logout') }}">Deconnexion</a>
+        </li>
+
+      </ul>
+    </li>
+      {% if is_granted("ROLE_ADMIN") %}
+        <li>
+           <a class="navbar-brand" href="{{ path('app_admin') }}">Back Office</a>
+        </li>
+      {% endif %}
+        <li>
+          <ul> 
+    {% else %} 
+            <li><a class="navbar-brand" href="{{ path('app_login') }}">Connexion</a></li>
+            <li><a class="navbar-brand" href="{{ path('app_register') }}">Inscription</a></li>
+    {% endif %} 
+          </ul>
+        </li>
+      
+        
+            
+         
+        
+  </ul>
+    
+  </div>
+  
+</nav>
+<div class="nav_burger" onclick="openMenu()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
+</div>
+{# <!-- As a heading -->
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Navbar</span>
+  </div>
+</nav> #}        
+        
+    
+
+   
+        
+    
+         
+
+        
+         
+        
+       
+       
+    
+
+      
+       
+     
+        
+        
+        
+            
+  
+  
+  
+                
+
+                
+
+                   
+                    
+                
+                    
+                    
+  

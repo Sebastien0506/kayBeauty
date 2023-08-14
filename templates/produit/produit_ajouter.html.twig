@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Ajoutez des Produits{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formProduit) }}
+    
+            {{ form_row(formProduit.titre) }}
+       
+            {{ form_row(formProduit.prix) }}
+     
+            {{ form_label(formProduit.description) }}       
+            {{ form_widget(formProduit.description) }}
+            {{ form_help(formProduit.description) }}
+            {{ form_errors(formProduit.description) }}
+           
+            
+            {{ form_rest(formProduit)}}
+            <input type="submit" value="Ajouter">
+    
+    {{ form_end(formProduit) }}
+
+       
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
